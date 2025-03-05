@@ -4,17 +4,17 @@ class Counter
 {
   private:
 
-    int val{1};
+    int val{};
 
   public:
 
     void add()
     {
-        val = ++val;
+        ++val;
     }
     void subtract()
     {
-        val = --val;
+        --val;
     }
     int GetCounter()
     {
@@ -23,10 +23,12 @@ class Counter
     Counter(int val) : val(val)
     {
     }
-    Counter() = default;
+    Counter() : val(1)
+    {
+    }
 };
 
-Counter printQuestion()
+void printQuestion(Counter &localCounter)
 {
     std::string inputStr{};
     int inputInt{};
@@ -36,11 +38,11 @@ Counter printQuestion()
     {
         std::cout << "Введите начальное значение счётчика: ";
         std::cin >> inputInt;
-        return Counter(inputInt);
+        localCounter = Counter(inputInt);
     }
     else
     {
-        return Counter();
+        localCounter = Counter();
     }
 }
 
@@ -77,11 +79,11 @@ bool select(Counter &local)
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    Counter counter_1 = printQuestion();
+    Counter counter_1;
+    printQuestion(counter_1);
     while (select(counter_1))
     {
     }
     std::cout << "До свидания!";
     return 0;
-
 }
